@@ -1,6 +1,6 @@
 # DRYSlidingMenu
 
-[![CI Status](http://img.shields.io/travis/Michael Seghers/DRYSlidingMenu.svg?style=flat)](https://travis-ci.org/Michael Seghers/DRYSlidingMenu)
+[![CI Status](http://img.shields.io/travis/appfoundry/DRYSlidingMenu.svg?style=flat)](https://travis-ci.org/appfoundry/DRYSlidingMenu)
 [![Version](https://img.shields.io/cocoapods/v/DRYSlidingMenu.svg?style=flat)](http://cocoadocs.org/docsets/DRYSlidingMenu)
 [![License](https://img.shields.io/cocoapods/l/DRYSlidingMenu.svg?style=flat)](http://cocoadocs.org/docsets/DRYSlidingMenu)
 [![Platform](https://img.shields.io/cocoapods/p/DRYSlidingMenu.svg?style=flat)](http://cocoadocs.org/docsets/DRYSlidingMenu)

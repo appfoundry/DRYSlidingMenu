@@ -1,5 +1,5 @@
 PODS:
-  - DRYSlidingMenu (0.1.0)
+  - DRYSlidingMenu (1.0.0)
   - Expecta (0.3.1)
   - Expecta+Snapshots (1.2.1):
     - Expecta
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  DRYSlidingMenu: c4676724c412828fc9a05e41e956ea24a4f19a4a
+  DRYSlidingMenu: fc62ba87aecbfe40f83e3ea3f32978f95b3a01aa
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
   Expecta+Snapshots: 30c28e3d8104665ee70e32df1cfc030bb37a8a6c
   FBSnapshotTestCase: 9053afee1d66b4c7c313fcb0ae582a5e47bea9d0
