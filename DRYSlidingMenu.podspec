@@ -1,28 +1,17 @@
-#
-# Be sure to run `pod lib lint DRYSlidingMenu.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# Any lines starting with a # are optional, but encouraged
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
 
 Pod::Spec.new do |s|
   s.name             = "DRYSlidingMenu"
   s.version          = "0.1.0"
-  s.summary          = "A short description of DRYSlidingMenu."
+  s.summary          = "A sliding menu/slidebar framework."
   s.description      = <<-DESC
-                       An optional longer description of DRYSlidingMenu
+                       DRYSlidingMenu is a simple container view controller, providing basic functionality for side bars, both on the left and right side.
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/DRYSlidingMenu"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/AppFoundry/DRYSlidingMenu"
   s.license          = 'MIT'
   s.author           = { "Michael Seghers" => "michael.seghers@ida-mediafoundry.be" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/DRYSlidingMenu.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/appfoundry/DRYSlidingMenu.git", :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/AppFoundryBE'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
@@ -30,7 +19,6 @@ Pod::Spec.new do |s|
   s.source_files = 'Pod/Classes'
   s.resources = 'Pod/Assets/*.png'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+   s.public_header_files = 'Pod/Classes/**/*.h'
+   s.frameworks = 'UIKit'
 end
