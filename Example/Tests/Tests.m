@@ -8,7 +8,7 @@
 
 SpecBegin(InitialSpecs)
 
-describe(@"these will fail", ^{
+/*describe(@"these will fail", ^{
 
     it(@"can do maths", ^{
         expect(1).to.equal(2);
@@ -38,6 +38,6 @@ describe(@"these will pass", ^{
             done();
         });
     });
-});
+});*/
 
 SpecEnd
