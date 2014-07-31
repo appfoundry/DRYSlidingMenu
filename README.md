@@ -18,10 +18,6 @@ it, simply add the following line to your Podfile:
 
     pod "DRYSlidingMenu"
 
-## Author
-
-Michael Seghers, michael.seghers@ida-mediafoundry.be
-
 ## License
 
 DRYSlidingMenu is available under the MIT license. See the LICENSE file for more info.
