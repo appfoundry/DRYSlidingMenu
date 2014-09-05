@@ -7,6 +7,16 @@
 
 @implementation DRYAllHitCapturingView
 
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+          self.backgroundColor = [UIColor greenColor];
+    }
+
+    return self;
+}
+
+
 - (BOOL) pointInside:(CGPoint) point withEvent:(UIEvent *) event {
     BOOL result;
     if (_shouldCaptureAllHits) {

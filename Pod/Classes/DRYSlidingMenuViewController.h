@@ -7,12 +7,6 @@
 
 @class DRYSlidingMenuViewController;
 
-@interface UIViewController (IMFSlidingMenusViewController)
-
-@property(nonatomic, readonly) DRYSlidingMenuViewController *slidingMenuViewController;
-
-@end
-
 @interface DRYSlidingMenuViewController : UIViewController
 
 @property (nonatomic, strong) UIViewController *leftMenuController;

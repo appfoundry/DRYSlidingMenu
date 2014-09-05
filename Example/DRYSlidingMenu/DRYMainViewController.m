@@ -26,9 +26,19 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
+    UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapped)];
+    [self.view addGestureRecognizer:tgr];
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(_openLeftMenu:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(_openRightMenu:)];
+}
+
+- (IBAction)_tapped {
+    self.view.backgroundColor = [UIColor blueColor];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.view.backgroundColor = [UIColor whiteColor];
+    }];
 }
 
 - (IBAction)_openLeftMenu:(id)sender {

@@ -188,15 +188,17 @@
 
 #pragma mark - Opening and closing sliders
 - (void) openLeftSlider {
-    if (_isRightOpen) {
-        [self closeRightSlider];
+    if (_leftMenuController) {
+        if (_isRightOpen) {
+            [self closeRightSlider];
+        }
+
+        _isLeftOpen = YES;
+        _leftContainerView.shouldCaptureAllHits = YES;
+        [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
+            [self _layoutViewsForLeftOpen];
+        }];
     }
-    
-    _isLeftOpen = YES;
-    _leftContainerView.shouldCaptureAllHits = YES;
-    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
-        [self _layoutViewsForLeftOpen];
-    }];
 }
 
 - (void) closeLeftSlider {
@@ -228,15 +230,17 @@
 }
 
 - (void) openRightSlider {
-    if (_isLeftOpen) {
-        [self closeLeftSlider];
+    if (_rightMenuController) {
+        if (_isLeftOpen) {
+            [self closeLeftSlider];
+        }
+
+        _isRightOpen = YES;
+        _rightContainerView.shouldCaptureAllHits = YES;
+        [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
+            [self _layoutViewsForRightOpen];
+        }];
     }
-    
-    _isRightOpen = YES;
-    _rightContainerView.shouldCaptureAllHits = YES;
-    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
-        [self _layoutViewsForRightOpen];
-    }];
 }
 
 - (void) closeRightSlider {
@@ -314,9 +318,9 @@
         BOOL wasRight = [self _movementWasRight:x];
         
         
-        if (!_isRightOpen && ((wasLeft && _isLeftOpen) || (wasRight && !_isLeftOpen))) {
+        if (_leftMenuController && (!_isRightOpen && ((wasLeft && _isLeftOpen) || (wasRight && !_isLeftOpen)))) {
             _panningLeftSlider = YES;
-        } else if (!_isLeftOpen && ((wasRight && _isRightOpen) || (wasLeft && !_isRightOpen))) {
+        } else if (_rightMenuController && (!_isLeftOpen && ((wasRight && _isRightOpen) || (wasLeft && !_isRightOpen)))) {
             _panningRightSlider = YES;
         }
         
@@ -340,18 +344,6 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     _panGestureRecognizer.enabled = YES;
-}
-
-@end
-
-@implementation UIViewController (IMFSlidingMenusViewController)
-
-- (DRYSlidingMenuViewController *) slidingMenuViewController {
-    DRYSlidingMenuViewController *result = nil;
-    if ([self.parentViewController isKindOfClass:[DRYSlidingMenuViewController class]]) {
-        result = (DRYSlidingMenuViewController *) self.parentViewController;
-    }
-    return result;
 }
 
 @end
