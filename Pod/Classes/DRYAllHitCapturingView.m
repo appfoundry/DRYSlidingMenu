@@ -15,7 +15,6 @@
     return self;
 }
 
-
 - (BOOL) pointInside:(CGPoint) point withEvent:(UIEvent *) event {
     BOOL result;
     if (_shouldCaptureAllHits) {
