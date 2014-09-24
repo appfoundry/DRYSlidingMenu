@@ -1,5 +1,6 @@
 target 'DRYSlidingMenu', :exclusive => true do
   pod "DRYSlidingMenu", :path => "../"
+  pod "Masonry"
 end
 
 target 'Tests', :exclusive => true do
