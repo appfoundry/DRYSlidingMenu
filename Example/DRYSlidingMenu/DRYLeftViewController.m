@@ -3,7 +3,7 @@
 //  Copyright (c) 2014 AppFoundry. All rights reserved.
 //
 
-#import "DRYSliderViewController.h"
+#import "DRYLeftViewController.h"
 #import "DRYMainViewController.h"
 
 #define MAS_SHORTHAND
@@ -11,11 +11,11 @@
 #import <DRYSlidingMenu/UIViewController+DRYSlidingMenuViewController.h>
 #import <DRYSlidingMenu/DRYSlidingMenuViewController.h>
 
-@interface DRYSliderViewController ()
+@interface DRYLeftViewController ()
 
 @end
 
-@implementation DRYSliderViewController
+@implementation DRYLeftViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
