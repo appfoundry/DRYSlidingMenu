@@ -25,11 +25,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CGFloat hue = ( arc4random() % 256 / 256.0f );
-    CGFloat saturation = ( arc4random() % 128 / 256.0f ) + 0.5f;
-    CGFloat brightness = ( arc4random() % 128 / 256.0f ) + 0.5f;
-    self.view.backgroundColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-    self.title = [NSString stringWithFormat:@"H %f S %f B %f", hue, saturation, brightness];
+    self.view.backgroundColor = [UIColor whiteColor];
+
     UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapped)];
     [self.view addGestureRecognizer:tgr];
 
@@ -38,10 +35,9 @@
 }
 
 - (IBAction)_tapped {
-    UIColor *current = self.view.backgroundColor;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blueColor];
     [UIView animateWithDuration:0.4 animations:^{
-        self.view.backgroundColor = current;
+        self.view.backgroundColor = [UIColor whiteColor];
     }];
 }
 
@@ -52,5 +48,6 @@
 - (IBAction)_openRightMenu:(id)sender {
     [self.drySlidingMenuViewController openRightSlider];
 }
+
 
 @end

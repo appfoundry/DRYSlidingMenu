@@ -20,7 +20,6 @@
     DRYSlidingMenuViewController *slidingMenuViewController = [[DRYSlidingMenuViewController alloc] init];
     slidingMenuViewController.leftMenuController = [[DRYLeftViewController alloc] init];
     slidingMenuViewController.rightMenuController = [[DRYLeftViewController alloc] init];
-    slidingMenuViewController.rightSliderWidth = 50;
 
     
     //Setup main view controller.

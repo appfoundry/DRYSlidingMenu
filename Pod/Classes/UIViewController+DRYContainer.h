@@ -10,5 +10,4 @@
 - (void) dryAddSubController:(UIViewController *) controller withContainer:(UIView *) container;
 - (void) dryRemoveSubController:(UIViewController *) controller;
 
-- (void (^)())dryStartTransitionAndPrepareCompletionFromSubController:(UIViewController *)from toSubController:(UIViewController *)to withContainer:(UIView *)container;
 @end

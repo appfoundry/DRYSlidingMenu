@@ -19,8 +19,6 @@
 @property (nonatomic, readonly) BOOL isLeftOpen;
 @property (nonatomic, readonly) BOOL isRightOpen;
 
-@property (nonatomic, strong) id<UIViewControllerAnimatedTransitioning> animator;
-
 #pragma mark - Opening and closing sliders
 - (void) openLeftSlider;
 - (void) closeLeftSlider;

@@ -23,13 +23,6 @@
 #define DEFAULT_SLIDER_WIDTH 240.0F
 #define DEFAULT_ANIMATION_DURATION 0.25F
 
-@interface DRYSlidingMenuInteractionContext : NSObject <UIViewControllerContextTransitioning>
-- (instancetype)initWithFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController completion:(void(^)(BOOL finished)) completionBlock;
-@end
-
-@interface DRYSlidingMenuDefaultMainViewAnimator : NSObject<UIViewControllerAnimatedTransitioning>
-@end
-
 @implementation DRYSlidingMenuViewController
 
 - (id) initWithNibName:(NSString *) nibNameOrNil bundle:(NSBundle *) nibBundleOrNil {
@@ -48,7 +41,6 @@
 - (void) _init {
     _leftSliderWidth = DEFAULT_SLIDER_WIDTH;
     _rightSliderWidth = DEFAULT_SLIDER_WIDTH;
-    _animator = [[DRYSlidingMenuDefaultMainViewAnimator alloc] init];
 }
 
 - (void) viewDidLoad
@@ -287,17 +279,9 @@
 
 - (void) setMainViewController:(UIViewController *) mainViewController {
     if (_mainViewController != mainViewController) {
-        if (_mainViewController) {
-            void (^done)() = [self dryStartTransitionAndPrepareCompletionFromSubController:_mainViewController toSubController:mainViewController withContainer:_mainContainerView];
-            DRYSlidingMenuInteractionContext *context = [[DRYSlidingMenuInteractionContext alloc] initWithFromViewController:_mainViewController toViewController:mainViewController completion:^(BOOL finished) {
-                done();
-                _mainViewController = mainViewController;
-            }];
-            [_animator animateTransition:context];
-        } else {
-            [self dryAddSubController:mainViewController withContainer:_mainContainerView];
-            _mainViewController = mainViewController;
-        }
+        [self dryRemoveSubController:_mainViewController];
+        _mainViewController = mainViewController;
+        [self dryAddSubController:mainViewController withContainer:_mainContainerView];
     }
 }
 
@@ -361,106 +345,5 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     _panGestureRecognizer.enabled = YES;
 }
-
-@end
-
-@implementation DRYSlidingMenuInteractionContext {
-    NSDictionary *_viewcontrollers;
-    __weak UIView *_containerView;
-    void(^_completionBlock)(BOOL);
-}
-
-
-- (instancetype) initWithFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController completion:(void(^)(BOOL finished)) completionBlock {
-    self = [super init];
-    if (self) {
-        _viewcontrollers = @{
-                UITransitionContextFromViewControllerKey:fromViewController,
-                UITransitionContextToViewControllerKey:toViewController
-        };
-        _containerView = fromViewController.view.superview;
-        _completionBlock = [completionBlock copy];
-    }
-    return self;
-}
-
-- (UIView *)containerView {
-    return _containerView;
-}
-
-- (BOOL)isAnimated {
-    return NO;
-}
-
-- (BOOL)isInteractive {
-    return NO;
-}
-
-- (BOOL)transitionWasCancelled {
-    return NO;
-}
-
-- (UIModalPresentationStyle)presentationStyle {
-    return UIModalPresentationPopover;
-}
-
-- (void)updateInteractiveTransition:(CGFloat)percentComplete {
-
-}
-
-- (void)finishInteractiveTransition {
-
-}
-
-- (void)cancelInteractiveTransition {
-
-}
-
-- (void)completeTransition:(BOOL)didComplete {
-    _completionBlock(didComplete);
-}
-
-- (UIViewController *)viewControllerForKey:(NSString *)key {
-    return _viewcontrollers[key];
-}
-
-- (UIView *)viewForKey:(NSString *)key {
-    return [_viewcontrollers[key] view];
-}
-
-- (CGAffineTransform)targetTransform {
-    return CGAffineTransformIdentity;
-}
-
-- (CGRect)initialFrameForViewController:(UIViewController *)vc {
-    return  self.containerView.bounds;
-}
-
-- (CGRect)finalFrameForViewController:(UIViewController *)vc {
-    return  self.containerView.bounds;
-}
-
-@end
-
-@implementation DRYSlidingMenuDefaultMainViewAnimator {
-
-}
-- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return .75;
-}
-
-- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
-    UIViewController *from = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *to = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    to.view.alpha = 0;
-    from.view.alpha = 1;
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionTransitionNone animations:^{
-        from.view.alpha = 0;
-        to.view.alpha = 1;
-    } completion:^(BOOL finished) {
-        [transitionContext completeTransition:finished];
-    }];
-}
-
 
 @end

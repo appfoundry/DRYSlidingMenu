@@ -19,17 +19,4 @@
     [controller removeFromParentViewController];
 }
 
-- (void(^)())dryStartTransitionAndPrepareCompletionFromSubController:(UIViewController *)from toSubController:(UIViewController *)to withContainer:(UIView *) container {
-    [self addChildViewController:to];
-    [container addSubview:to.view];
-    to.view.frame = container.bounds;
-    [from willMoveToParentViewController:nil];
-
-    return ^{
-        [from.view removeFromSuperview];
-        [from removeFromParentViewController];
-        [to didMoveToParentViewController:self];
-    };
-}
-
 @end
