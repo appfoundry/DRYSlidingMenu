@@ -6,6 +6,7 @@
 #import "DRYSlidingMenuViewController.h"
 #import "DRYAllHitCapturingView.h"
 #import "UIViewController+DRYContainer.h"
+#import "UIViewController+DRYSlidingMenuViewController.h"
 
 @interface DRYSlidingMenuViewController () <UIGestureRecognizerDelegate> {
     UIView *_mainContainerView;
@@ -23,8 +24,16 @@
 #define DEFAULT_SLIDER_WIDTH 240.0F
 #define DEFAULT_ANIMATION_DURATION 0.25F
 
-@interface DRYSlidingMenuInteractionContext : NSObject <UIViewControllerContextTransitioning>
+typedef NS_ENUM(NSInteger, DRYSlidingDirection) {
+    DRYSlidingDirectionLeft = 0,
+    DRYSlidingDirectionRight = 1
+};
+@interface DRYMainViewControllerReplacementContextTransitioning : NSObject <UIViewControllerContextTransitioning>
 - (instancetype)initWithFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController completion:(void(^)(BOOL finished)) completionBlock;
+@end
+
+@interface DRYSliderViewControllerSlidingContextTransitioning : NSObject <UIViewControllerContextTransitioning>
+- (instancetype)initWithMainController:(UIViewController *) mainViewController sliderController:(UIViewController *) sliderController direction:(DRYSlidingDirection) direction;
 @end
 
 @interface DRYSlidingMenuDefaultMainViewAnimator : NSObject<UIViewControllerAnimatedTransitioning>
@@ -48,7 +57,7 @@
 - (void) _init {
     _leftSliderWidth = DEFAULT_SLIDER_WIDTH;
     _rightSliderWidth = DEFAULT_SLIDER_WIDTH;
-    _animator = [[DRYSlidingMenuDefaultMainViewAnimator alloc] init];
+    _mainViewControllerTransitionAnimator = [[DRYSlidingMenuDefaultMainViewAnimator alloc] init];
 }
 
 - (void) viewDidLoad
@@ -289,11 +298,11 @@
     if (_mainViewController != mainViewController) {
         if (_mainViewController) {
             void (^done)() = [self dryStartTransitionAndPrepareCompletionFromSubController:_mainViewController toSubController:mainViewController withContainer:_mainContainerView];
-            DRYSlidingMenuInteractionContext *context = [[DRYSlidingMenuInteractionContext alloc] initWithFromViewController:_mainViewController toViewController:mainViewController completion:^(BOOL finished) {
+            DRYMainViewControllerReplacementContextTransitioning *context = [[DRYMainViewControllerReplacementContextTransitioning alloc] initWithFromViewController:_mainViewController toViewController:mainViewController completion:^(BOOL finished) {
                 done();
                 _mainViewController = mainViewController;
             }];
-            [_animator animateTransition:context];
+            [_mainViewControllerTransitionAnimator animateTransition:context];
         } else {
             [self dryAddSubController:mainViewController withContainer:_mainContainerView];
             _mainViewController = mainViewController;
@@ -364,7 +373,7 @@
 
 @end
 
-@implementation DRYSlidingMenuInteractionContext {
+@implementation DRYMainViewControllerReplacementContextTransitioning {
     NSDictionary *_viewcontrollers;
     __weak UIView *_containerView;
     void(^_completionBlock)(BOOL);
@@ -401,7 +410,7 @@
 }
 
 - (UIModalPresentationStyle)presentationStyle {
-    return UIModalPresentationPopover;
+    return UIModalPresentationNone;
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
@@ -441,6 +450,79 @@
 }
 
 @end
+
+@implementation DRYSliderViewControllerSlidingContextTransitioning {
+    __weak UIViewController *_mainViewController;
+    __weak UIViewController *_sliderViewController;
+    DRYSlidingDirection _direction;
+}
+- (instancetype)initWithMainController:(UIViewController *)mainViewController sliderController:(UIViewController *)sliderController direction:(DRYSlidingDirection)direction {
+    _mainViewController = mainViewController;
+    _sliderViewController = sliderController;
+    _direction = direction;
+}
+
+- (UIView *)containerView {
+    return _mainViewController.drySlidingMenuViewController.view;
+}
+
+- (BOOL)isAnimated {
+    return NO;
+}
+
+- (BOOL)isInteractive {
+    return NO;
+}
+
+- (BOOL)transitionWasCancelled {
+    return NO;
+}
+
+- (UIModalPresentationStyle)presentationStyle {
+    return UIModalPresentationNone;
+}
+
+- (void)updateInteractiveTransition:(CGFloat)percentComplete {
+
+}
+
+- (void)finishInteractiveTransition {
+
+}
+
+- (void)cancelInteractiveTransition {
+
+}
+
+- (void)completeTransition:(BOOL)didComplete {
+
+}
+
+- (UIViewController *)viewControllerForKey:(NSString *)key {
+    return nil;
+}
+
+- (UIView *)viewForKey:(NSString *)key {
+    return nil;
+}
+
+- (CGAffineTransform)targetTransform {
+    CGAffineTransform result;
+    return result;
+}
+
+- (CGRect)initialFrameForViewController:(UIViewController *)vc {
+    CGRect result;
+    return result;
+}
+
+- (CGRect)finalFrameForViewController:(UIViewController *)vc {
+    CGRect result;
+    return result;
+}
+
+@end
+
 
 @implementation DRYSlidingMenuDefaultMainViewAnimator {
 

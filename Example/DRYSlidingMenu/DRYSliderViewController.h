@@ -5,6 +5,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DRYLeftViewController : UIViewController
+@interface DRYSliderViewController : UIViewController
 
 @end

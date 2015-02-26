@@ -9,7 +9,7 @@
 #import "DRYAppDelegate.h"
 #import <DRYSlidingMenu/DRYSlidingMenuViewController.h>
 
-#import "DRYLeftViewController.h"
+#import "DRYSliderViewController.h"
 #import "DRYMainViewController.h"
 
 @implementation DRYAppDelegate
@@ -18,8 +18,8 @@
 {
     // Setup the sliding menu view controller.
     DRYSlidingMenuViewController *slidingMenuViewController = [[DRYSlidingMenuViewController alloc] init];
-    slidingMenuViewController.leftMenuController = [[DRYLeftViewController alloc] init];
-    slidingMenuViewController.rightMenuController = [[DRYLeftViewController alloc] init];
+    slidingMenuViewController.leftMenuController = [[DRYSliderViewController alloc] init];
+    slidingMenuViewController.rightMenuController = [[DRYSliderViewController alloc] init];
     slidingMenuViewController.rightSliderWidth = 50;
 
     
