@@ -7,7 +7,26 @@
 
 @class DRYSlidingMenuViewController;
 
+@protocol DRYSlidingMenuViewControllerDelegate <NSObject>
+
+@optional
+- (void)slidingMenuViewControllerWillOpenLeftMenu:(DRYSlidingMenuViewController *)controller;
+- (void)slidingMenuViewControllerWillOpenRightMenu:(DRYSlidingMenuViewController *)controller;
+
+- (void)slidingMenuViewControllerDidOpenLeftMenu:(DRYSlidingMenuViewController *)controller;
+- (void)slidingMenuViewControllerDidOpenRightMenu:(DRYSlidingMenuViewController *)controller;
+
+- (void)slidingMenuViewControllerWillCloseLeftMenu:(DRYSlidingMenuViewController *)controller;
+- (void)slidingMenuViewControllerWillCloseRightMenu:(DRYSlidingMenuViewController *)controller;
+
+- (void)slidingMenuViewControllerDidCloseLeftMenu:(DRYSlidingMenuViewController *)controller;
+- (void)slidingMenuViewControllerDidCloseRightMenu:(DRYSlidingMenuViewController *)controller;
+
+@end
+
 @interface DRYSlidingMenuViewController : UIViewController
+
+@property (nonatomic, weak) id<DRYSlidingMenuViewControllerDelegate> delegate;
 
 @property (nonatomic, strong) UIViewController *leftMenuController;
 @property (nonatomic, strong) UIViewController *mainViewController;

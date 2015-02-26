@@ -193,20 +193,35 @@
             [self closeRightSlider];
         }
 
+        if ([self.delegate respondsToSelector:@selector(slidingMenuViewControllerWillOpenLeftMenu:)]) {
+            [self.delegate slidingMenuViewControllerWillOpenLeftMenu:self];
+        }
         _isLeftOpen = YES;
         _leftContainerView.shouldCaptureAllHits = YES;
         [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
             [self _layoutViewsForLeftOpen];
+        } completion:^(BOOL finished) {
+            if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidOpenLeftMenu:)]) {
+                [self.delegate slidingMenuViewControllerDidOpenLeftMenu:self];
+            }
         }];
     }
 }
 
 - (void) closeLeftSlider {
+    if ([self.delegate respondsToSelector:@selector(slidingMenuViewControllerWillCloseLeftMenu:)]) {
+        [self.delegate slidingMenuViewControllerWillCloseLeftMenu:self];
+    }
+
     _isLeftOpen = NO;
     _leftContainerView.shouldCaptureAllHits = NO;
     [_leftContainerView endEditing:YES];
     [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
         [self _layoutViewsForLeftClose];
+    } completion:^(BOOL finished) {
+        if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidCloseLeftMenu:)]) {
+            [self.delegate slidingMenuViewControllerDidCloseLeftMenu:self];
+        }
     }];
 }
 
@@ -234,21 +249,37 @@
         if (_isLeftOpen) {
             [self closeLeftSlider];
         }
+        if ([self.delegate respondsToSelector:@selector(slidingMenuViewControllerWillOpenRightMenu:)]) {
+            [self.delegate slidingMenuViewControllerWillOpenRightMenu:self];
+        }
+
 
         _isRightOpen = YES;
         _rightContainerView.shouldCaptureAllHits = YES;
         [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
             [self _layoutViewsForRightOpen];
+        } completion:^(BOOL finished) {
+            if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidOpenRightMenu:)]) {
+                [self.delegate slidingMenuViewControllerDidOpenRightMenu:self];
+            }
         }];
     }
 }
 
 - (void) closeRightSlider {
+    if ([self.delegate respondsToSelector:@selector(slidingMenuViewControllerWillCloseRightMenu:)]) {
+        [self.delegate slidingMenuViewControllerWillCloseRightMenu:self];
+    }
+
     _isRightOpen = NO;
     _rightContainerView.shouldCaptureAllHits = NO;
     [_rightContainerView endEditing:YES];
     [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
         [self _layoutViewsForRightClose];
+    } completion:^(BOOL finished) {
+        if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidCloseRightMenu:)]) {
+            [self.delegate slidingMenuViewControllerDidCloseRightMenu:self];
+        }
     }];
 }
 
