@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		27590EEE198A627D00C2E9E3 /* DRYLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27590EED198A627D00C2E9E3 /* DRYLeftViewController.m */; };
 		27590EF4198A653600C2E9E3 /* DRYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27590EF3198A653600C2E9E3 /* DRYMainViewController.m */; };
+		27F8368C1BDB54D70073815D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F8368B1BDB54D70073815D /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		3CCE61106B404E4895CB0426 /* libPods-DRYSlidingMenu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D0E71597F043F2898E933B /* libPods-DRYSlidingMenu.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -41,6 +42,7 @@
 		27590EED198A627D00C2E9E3 /* DRYLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRYLeftViewController.m; sourceTree = "<group>"; };
 		27590EF2198A653600C2E9E3 /* DRYMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRYMainViewController.h; sourceTree = "<group>"; };
 		27590EF3198A653600C2E9E3 /* DRYMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRYMainViewController.m; sourceTree = "<group>"; };
+		27F8368B1BDB54D70073815D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2AA0C033F048B29F9C53A444 /* Pods-DRYSlidingMenu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRYSlidingMenu.release.xcconfig"; path = "Pods/Target Support Files/Pods-DRYSlidingMenu/Pods-DRYSlidingMenu.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* DRYSlidingMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DRYSlidingMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -142,6 +144,7 @@
 				27590EED198A627D00C2E9E3 /* DRYLeftViewController.m */,
 				27590EF2198A653600C2E9E3 /* DRYMainViewController.h */,
 				27590EF3198A653600C2E9E3 /* DRYMainViewController.m */,
+				27F8368B1BDB54D70073815D /* Launch Screen.storyboard */,
 			);
 			path = DRYSlidingMenu;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F8368C1BDB54D70073815D /* Launch Screen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -469,13 +473,12 @@
 			baseConfigurationReference = EF9FD06B6BCA1CF617C97E3E /* Pods-DRYSlidingMenu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DRYSlidingMenu/DRYSlidingMenu-Prefix.pch";
 				INFOPLIST_FILE = "DRYSlidingMenu/DRYSlidingMenu-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "be.appfoundry.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -485,13 +488,12 @@
 			baseConfigurationReference = 2AA0C033F048B29F9C53A444 /* Pods-DRYSlidingMenu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DRYSlidingMenu/DRYSlidingMenu-Prefix.pch";
 				INFOPLIST_FILE = "DRYSlidingMenu/DRYSlidingMenu-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "be.appfoundry.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

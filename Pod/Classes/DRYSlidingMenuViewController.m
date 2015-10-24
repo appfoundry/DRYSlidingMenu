@@ -81,16 +81,16 @@
     _leftContainerView.center = CGPointMake(_leftContainerView.center.x + x, _leftContainerView.center.y);
     _mainContainerView.center = CGPointMake(_mainContainerView.center.x + x, _mainContainerView.center.y);
     if (_leftContainerView.frame.origin.x > 0) {
-        [self _layoutViewsForLeftOpen];
+        [self _layoutViewsForLeftOpenForSize:self.view.bounds.size];
     } else if (CGRectGetMaxX(_leftContainerView.frame) < 0)   {
-        [self _layoutViewsForLeftClose];
+        [self _layoutViewsForLeftCloseForSize:self.view.bounds.size];
     }
 }
 
 - (void) _moveRightSliderWithX:(CGFloat) x {
     _rightContainerView.center = CGPointMake(_rightContainerView.center.x + x, _rightContainerView.center.y);
     if (CGRectGetMaxX(_rightContainerView.frame) < CGRectGetMaxX(self.view.bounds)) {
-        [self _layoutViewsForRightOpen];
+        [self _layoutViewsForRightOpenForSize:self.view.bounds.size];
     }
 }
 
@@ -157,18 +157,29 @@
 }
 
 - (void) viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
     if (!_panningLeftSlider && !_panningRightSlider) {
+        [self _adjustFramesToSize:self.view.bounds.size];
+    }
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [self _adjustFramesToSize:size];
+}
+
+- (void)_adjustFramesToSize:(CGSize)size {
+    
         if (_isLeftOpen) {
-            [self _layoutViewsForLeftOpen];
+            [self _layoutViewsForLeftOpenForSize:size];
         } else {
-            [self _layoutViewsForLeftClose];
+            [self _layoutViewsForLeftCloseForSize:size];
         }
         if (_isRightOpen) {
-            [self _layoutViewsForRightOpen];
+            [self _layoutViewsForRightOpenForSize:size];
         } else {
-            [self _layoutViewsForRightClose];
+            [self _layoutViewsForRightCloseForSize:size];
         }
-    }
 }
 
 #pragma mark - Managing dimensions
@@ -199,7 +210,7 @@
         _isLeftOpen = YES;
         _leftContainerView.shouldCaptureAllHits = YES;
         [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
-            [self _layoutViewsForLeftOpen];
+            [self _layoutViewsForLeftOpenForSize:self.view.bounds.size];
         } completion:^(BOOL finished) {
             if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidOpenLeftMenu:)]) {
                 [self.delegate slidingMenuViewControllerDidOpenLeftMenu:self];
@@ -217,7 +228,7 @@
     _leftContainerView.shouldCaptureAllHits = NO;
     [_leftContainerView endEditing:YES];
     [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
-        [self _layoutViewsForLeftClose];
+        [self _layoutViewsForLeftCloseForSize:self.view.bounds.size];
     } completion:^(BOOL finished) {
         if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidCloseLeftMenu:)]) {
             [self.delegate slidingMenuViewControllerDidCloseLeftMenu:self];
@@ -225,15 +236,14 @@
     }];
 }
 
-- (void) _layoutViewsForLeftOpen {
-    _leftContainerView.frame = CGRectMake(0, 0, _leftSliderWidth, self.view.bounds.size.height);
-    _mainContainerView.frame = CGRectMake(_leftSliderWidth, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-    
+- (void) _layoutViewsForLeftOpenForSize:(CGSize)size {
+    _leftContainerView.frame = CGRectMake(0, 0, _leftSliderWidth, size.height);
+    _mainContainerView.frame = CGRectMake(_leftSliderWidth, 0, size.width, size.height);
 }
 
-- (void) _layoutViewsForLeftClose {
-    _leftContainerView.frame = CGRectMake(-_leftSliderWidth, 0, _leftSliderWidth, self.view.bounds.size.height);
-    _mainContainerView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+- (void) _layoutViewsForLeftCloseForSize:(CGSize)size {
+    _leftContainerView.frame = CGRectMake(-_leftSliderWidth, 0, _leftSliderWidth, size.height);
+    _mainContainerView.frame = CGRectMake(0, 0, size.width, size.height);
 }
 
 - (void) switchLeftSlider {
@@ -257,7 +267,7 @@
         _isRightOpen = YES;
         _rightContainerView.shouldCaptureAllHits = YES;
         [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
-            [self _layoutViewsForRightOpen];
+            [self _layoutViewsForRightOpenForSize:self.view.bounds.size];
         } completion:^(BOOL finished) {
             if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidOpenRightMenu:)]) {
                 [self.delegate slidingMenuViewControllerDidOpenRightMenu:self];
@@ -275,7 +285,7 @@
     _rightContainerView.shouldCaptureAllHits = NO;
     [_rightContainerView endEditing:YES];
     [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
-        [self _layoutViewsForRightClose];
+        [self _layoutViewsForRightCloseForSize:self.view.bounds.size];
     } completion:^(BOOL finished) {
         if (finished && [self.delegate respondsToSelector:@selector(slidingMenuViewControllerDidCloseRightMenu:)]) {
             [self.delegate slidingMenuViewControllerDidCloseRightMenu:self];
@@ -291,12 +301,12 @@
     }
 }
 
-- (void) _layoutViewsForRightOpen {
-    _rightContainerView.frame = CGRectMake(self.view.bounds.size.width - _rightSliderWidth, 0, _rightSliderWidth, self.view.bounds.size.height);
+- (void) _layoutViewsForRightOpenForSize:(CGSize)size {
+    _rightContainerView.frame = CGRectMake(size.width - _rightSliderWidth, 0, _rightSliderWidth, size.height);
 }
 
-- (void) _layoutViewsForRightClose {
-    _rightContainerView.frame = CGRectMake(self.view.bounds.size.width, 0, _rightSliderWidth, self.view.bounds.size.height);
+- (void) _layoutViewsForRightCloseForSize:(CGSize)size {
+    _rightContainerView.frame = CGRectMake(size.width, 0, _rightSliderWidth, size.height);
 }
 
 #pragma mark - Child controller management
